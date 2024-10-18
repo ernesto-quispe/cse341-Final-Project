@@ -1,0 +1,75 @@
+GET http://localhost:3000/users HTTP/1.1
+###
+GET http://localhost:3000/users/6700ae2ac67af198baf98c7a HTTP/1.1
+###
+PUT http://localhost:3000/users/6700ae2ac67af198baf98c7a 
+content-type: application/json
+
+{
+ "name": "John Doe",
+  "email": "john.doe@example.com",
+  "age": 30,
+  "address": {
+    "street": "123 Main St",
+    "number": 742,
+    "city": "Orlando",
+    "country": "USA"
+  },
+  "phone": "+1234567890",
+  "registrationDate": "2024-10-05",
+  "active": false
+}
+###
+POST http://localhost:3000/users/ 
+content-type: application/json
+
+{
+ "name": "John Cena",
+  "email": "john.cena@example.com",
+  "age": 45,
+  "address": {
+    "street": "Main St",
+    "number": 77,
+    "city": "farmington",
+    "country": "USA"
+  },
+  "phone": "+1234567877",
+  "registrationDate": "2024-09-09",
+  "active": true
+}
+###
+DELETE  http://localhost:3000/users/6700c224756ed0c86df4555b HTTP/1.1
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+###
+GET http://localhost:3000/products HTTP/1.1
+###
+GET http://localhost:3000/products/6700af33c67af198baf98c7b HTTP/1.1
+###
+PUT http://localhost:3000/products/6700af33c67af198baf98c7b 
+content-type: application/json
+
+{
+  "name": "Laptop XYZ",
+  "category": "Electronics",
+  "price": 1200.99,
+  "stock": 40,
+  "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
+  "creationDate": "2024-01-21",
+  "available": true
+}
+###
+POST http://localhost:3000/products/ 
+content-type: application/json
+
+{
+  "name": "Printer HP",
+  "category": "Electronics",
+  "price": 500.99,
+  "stock": 10,
+  "description": "High-performance.",
+  "creationDate": "2024-05-21",
+  "available": false
+}
+###
+DELETE  http://localhost:3000/products/6700c4441db155843599bd8d HTTP/1.1
