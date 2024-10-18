@@ -5,49 +5,35 @@ const validateObjectId = (id) => {
   return ObjectId.isValid(id);
 };
 
-const validateUserId = [
+const validateMovieId =  [
   param('id').custom((value) => {
     if (!validateObjectId(value)) {
-      throw new Error('Invalid user ID format');
+      throw new Error('Invalid movie ID format');
     }
     return true;
   }),
 ];
 
-const validateProductId = [
-  param('id').custom((value) => {
-    if (!validateObjectId(value)) {
-      throw new Error('Invalid product ID format');
-    }
-    return true;
-  }),
+const validateCreateMovie = [
+  body('title').isString().withMessage('Title must be a string'),
+  body('releaseDate').isString().withMessage('Release Date must be a valid date'),
+  body('genre').isString().withMessage('Genre must be a string'),
+  body('director').isString().withMessage('Director must be a string'),
+  body('synopsis').isString().withMessage('Synopsis must be a string'),
+  body('runtime').isInt({ gt: 0 }).withMessage('Runtime must be a positive integer')
 ];
 
-const validateCreateUser = [
-  body('name').isString().withMessage('Name must be a string'),
-  body('email').isEmail().withMessage('Email must be valid'),
-];
-
-const validateUpdateUser = [
-  body('name').optional().isString().withMessage('Name must be a string'),
-  body('email').optional().isEmail().withMessage('Email must be valid'),
-];
-
-const validateCreateProduct = [
-  body('name').isString().withMessage('Name must be a string'),
-  body('price').isFloat({ gt: 0 }).withMessage('Price must be a positive number'),
-];
-
-const validateUpdateProduct = [
-  body('name').optional().isString().withMessage('Name must be a string'),
-  body('price').optional().isFloat({ gt: 0 }).withMessage('Price must be a positive number'),
+const validateUpdateMovie = [
+  body('title').optional().isString().withMessage('Title must be a string'),
+  body('releaseDate').isString().withMessage('Release Date must be a valid date'),
+  body('genre').optional().isString().withMessage('Genre must be a string'),
+  body('director').optional().isString().withMessage('Director must be a string'),
+  body('synopsis').optional().isString().withMessage('Synopsis must be a string'),
+  body('runtime').optional().isInt({ gt: 0 }).withMessage('Runtime must be a positive integer')
 ];
 
 module.exports = {
-  validateUserId,
-  validateProductId,
-  validateCreateUser,
-  validateUpdateUser,
-  validateCreateProduct,
-  validateUpdateProduct,
+  validateMovieId,
+  validateCreateMovie,
+  validateUpdateMovie
 };
