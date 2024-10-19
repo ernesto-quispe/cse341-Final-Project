@@ -55,11 +55,11 @@
         },
         "birthDate": {
           "type": "string",
-          "example": "Smart Phone"
+          "example": "1990-04-02"
         },
         "Nationality": {
           "type": "string",
-          "example": "123.00"
+          "example": "Peruvian"
         },
         "awards_count": {
           "type": "integer",
