@@ -9,12 +9,21 @@ router.use('/', require('./swagger'))
 //     res.send('Hello World');
 // });
 
-router.use('/users', require('./users'));
+router.use('/movies', require('./movies'));
+router.use('/actors', require('./actors'));
+router.use('/reviews', require('./reviews'));
+router.use('/critics', require('./critics'));
 
-router.use('/products', require('./products'));
-
+/*
+    #swagger.tags = ['Login/LogOut']
+    #swagger.description = 'Login using github OAUTH 2'
+*/
 router.get('/login', passport.authenticate('github'), (req, res) => {});
 
+/*
+    #swagger.tags = ['Login/LogOut']
+    #swagger.description = 'Logout'
+*/
 router.get('/logout', function(req, res, next) {
     req.logout(function(err) {
       if (err) { return next(err); }

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { validateMovieId, validateCreateMovie, validateUpdateMovie } = require('../validator');
+const { validateMovieId, validateCreateMovie } = require('../validator');
 const moviesController = require('../controllers/movies');
 const { validationResult } = require('express-validator');
 const { isAuthenticated } = require("../middleware/authenticate");
@@ -16,7 +16,7 @@ const validate = (req, res, next) => {
 
 router.get('/', moviesController.getAll);
 router.get('/:id', validateMovieId, validate, moviesController.getSingle);
-router.put('/:id', isAuthenticated, validateMovieId, validateUpdateMovie, validate, moviesController.updateMovie);
+router.put('/:id', isAuthenticated, validateMovieId, validateCreateMovie, validate, moviesController.updateMovie);
 router.post('/', isAuthenticated, validateCreateMovie, validate, moviesController.createMovie);
 router.delete('/:id', isAuthenticated, validateMovieId, validate, moviesController.deleteMovie);
 

@@ -1,10 +1,18 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
-
-const getAll = async (req, res) => {
-  /* #swagger.tags = ['Actors']
-   #swagger.description = 'Retrieve all actors from the collection' */
+const getAll = async (req, res) => {  
+  /* 
+    #swagger.tags = ['Actors']
+    #swagger.description = 'Retrieve all actors from the collection'
+    #swagger.responses[200] = {
+      description: 'Successful retrieval of all actors',
+      schema: {
+        type: 'array',
+        items: { $ref: '#/definitions/Actors' }
+      }
+    }
+  */ 
   try {
     const result = await mongodb.getDb().db().collection('actors').find();
     result.toArray().then((actors) => {
@@ -18,10 +26,16 @@ const getAll = async (req, res) => {
   }
 };
 
-
-const getSingle = async (req, res) => {
-  /* #swagger.tags = ['Actors']
-   #swagger.description = 'Retrieve a single actor by their ID' */
+const getSingle = async (req, res) => {  
+  /* 
+    #swagger.tags = ['Actors']
+    #swagger.description = 'Retrieve a single actor by their ID'
+    #swagger.parameters['id'] = { description: 'Actor ID', type: 'string' }
+    #swagger.responses[200] = {
+      description: 'Successful retrieval of the actor',
+      schema: { $ref: '#/definitions/Actors' }
+    }
+  */ 
   try {
     const actorId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db().collection('actors').find({ _id: actorId });
@@ -44,14 +58,23 @@ const getSingle = async (req, res) => {
   }
 };
 
-
-const updateActor = async (req, res) => {
-  /* #swagger.tags = ['Actors']
-   #swagger.description = 'Update an existing actor by their ID' */
+const updateActor = async (req, res) => {  
+  /* 
+    #swagger.tags = ['Actors']
+    #swagger.description = 'Update an existing actor by their ID'
+    #swagger.parameters['id'] = { description: 'Actor ID', type: 'string' }
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Actor data',
+      required: true,
+      schema: { $ref: '#/definitions/Actors' }
+    }
+    #swagger.responses[204] = { description: 'No Content' }
+  */
   try {
     const actorId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db().collection('actors').findOneAndUpdate(
-      { _id: actorId },
+      { _id: actorId }, 
       { $set: req.body }
     );
     if (!result) {
@@ -64,20 +87,36 @@ const updateActor = async (req, res) => {
   }
 };
 
-const createActor = async (req, res) => {
-  /* #swagger.tags = ['Actors']
-   #swagger.description = 'Create a new Actor' */
+const createActor = async (req, res) => {  
+  /* 
+    #swagger.tags = ['Actors']
+    #swagger.description = 'Create a new Actor'
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Actor data',
+      required: true,
+      schema: { $ref: '#/definitions/Actors' }
+    }
+    #swagger.responses[201] = {
+      description: 'Actor created successfully',
+      schema: { $ref: '#/definitions/Actors' }
+    }
+  */
   try {
     const result = await mongodb.getDb().db().collection('actors').insertOne(req.body);
-    res.send(result);
+    res.status(201).send(result);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while creating the actor' });
   }
 };
 
-const deleteActor = async (req, res) => {
-  /* #swagger.tags = ['Actors']
-   #swagger.description = 'Delete an existing actor by their ID' */
+const deleteActor = async (req, res) => {  
+  /* 
+    #swagger.tags = ['Actors']
+    #swagger.description = 'Delete an existing actor by their ID'
+    #swagger.parameters['id'] = { description: 'Actor ID', type: 'string' }
+    #swagger.responses[204] = { description: 'No Content' }
+  */
   try {
     const actorId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db().collection('actors').findOneAndDelete({ _id: actorId });

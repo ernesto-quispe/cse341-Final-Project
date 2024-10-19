@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { validateUserId, validateCreateUser, validateUpdateUser } = require('../validator');
+const { validateActorId, validateCreateActor } = require('../validator');
 const actorsController = require('../controllers/actors');
 const { validationResult } = require('express-validator');
 const { isAuthenticated } = require("../middleware/authenticate");
@@ -14,10 +14,10 @@ const validate = (req, res, next) => {
   next();
 };
 
-router.get('/', usersController.getAll);
-router.get('/:id', validateUserId, validate, actorsController.getSingle);
-router.put('/:id', isAuthenticated, validateUserId, validateUpdateUser, validate, actorsController.updateActor);
-router.post('/', isAuthenticated, validateCreateUser, validate, actorsController.createActor);
-router.delete('/:id', isAuthenticated, validateUserId, validate, actorsController.deleteActor);
+router.get('/', actorsController.getAll);
+router.get('/:id', validateActorId, validate, actorsController.getSingle);
+router.put('/:id', isAuthenticated, validateActorId, validateCreateActor, validate, actorsController.updateActor);
+router.post('/', isAuthenticated, validateCreateActor, validate, actorsController.createActor);
+router.delete('/:id', isAuthenticated, validateActorId, validate, actorsController.deleteActor);
 
 module.exports = router;
