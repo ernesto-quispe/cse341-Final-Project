@@ -69,13 +69,13 @@
     },
     "Critics": {
       "type": "object",
-      "required": ["name", "afiliation", "biography"],
+      "required": ["name", "affiliation", "biography"],
       "properties": {
         "name": {
           "type": "string",
           "example": "Anton Ego"
         },
-        "afiliation": {
+        "affiliation": {
           "type": "string",
           "example": "Self Published"
         },
