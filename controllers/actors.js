@@ -22,6 +22,7 @@ const getAll = async (req, res) => {
       res.status(500).json({ error: 'Failed to convert documents to array' });
     });
   } catch (error) {
+    console.error('Error retrieving actors:', error); 
     res.status(500).json({ error: 'An error occurred while retrieving actors' });
   }
 };
